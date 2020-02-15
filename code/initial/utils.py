@@ -36,10 +36,11 @@ class ReconfigCommand(namedtuple('ReconfigCommand',['client',
 
 class Config(namedtuple('Config',['replicas',
                                   'acceptors',
-                                  'leaders'])):
+                                  'leaders',
+                                  'clients'])):
   __slots__ = ()
   def __str__(self):
-    return "%s;%s;%s" % (','.join(self.replicas),
-                         ','.join(self.acceptors),
-                         ','.join(self.leaders))
-
+    return "%s;%s;%s;%s" % (','.join(self.replicas),
+                            ','.join(self.acceptors),
+                            ','.join(self.leaders),
+                            ','.join(self.clients))

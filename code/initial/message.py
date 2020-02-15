@@ -56,3 +56,17 @@ class ProposeMessage(Message):
     Message.__init__(self, src)
     self.slot_number = slot_number
     self.command = command
+
+class ResponseMessage(Message):
+  def __init__(self, src, decision):
+    Message.__init__(self, src)
+    self.decision = decision
+
+class NewBatchMessage(Message):
+  def __init__(self, src, num_requests):
+    Message.__init__(self, src)
+    self.num_requests = num_requests
+
+class KillMessage(Message):
+  def __init__(self, src):
+    Message.__init__(self, src)

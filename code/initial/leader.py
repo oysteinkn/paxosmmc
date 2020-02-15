@@ -2,7 +2,7 @@ from utils import BallotNumber
 from process import Process
 from commander import Commander
 from scout import Scout
-from message import ProposeMessage,AdoptedMessage,PreemptedMessage
+from message import ProposeMessage,AdoptedMessage,PreemptedMessage,KillMessage
 
 class Leader(Process):
   def __init__(self, env, id, config):
@@ -14,7 +14,7 @@ class Leader(Process):
     self.env.addProc(self)
 
   def body(self):
-    print "Here I am: ", self.id
+    # print "Here I am: ", self.id
     Scout(self.env, "scout:%s:%s" % (str(self.id), str(self.ballot_number)),
           self.id, self.config.acceptors, self.ballot_number)
     while True:
@@ -53,5 +53,8 @@ class Leader(Process):
           Scout(self.env, "scout:%s:%s" % (str(self.id),
                                            str(self.ballot_number)),
                 self.id, self.config.acceptors, self.ballot_number)
+
+      elif isinstance(msg, KillMessage):
+        break
       else:
-        print "Leader: unknown msg type"
+        break

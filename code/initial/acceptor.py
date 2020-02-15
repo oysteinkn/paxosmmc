@@ -1,6 +1,6 @@
 from utils import PValue
 from process import Process
-from message import P1aMessage,P1bMessage,P2aMessage,P2bMessage
+from message import P1aMessage,P1bMessage,P2aMessage,P2bMessage,KillMessage
 
 class Acceptor(Process):
   def __init__(self, env, id):
@@ -10,7 +10,7 @@ class Acceptor(Process):
     self.env.addProc(self)
 
   def body(self):
-    print "Here I am: ", self.id
+    # print "Here I am: ", self.id
     while True:
       msg = self.getNextMessage()
       if isinstance(msg, P1aMessage):
@@ -29,3 +29,7 @@ class Acceptor(Process):
                          P2bMessage(self.id,
                                     self.ballot_number,
                                     msg.slot_number))
+      elif isinstance(msg, KillMessage):
+        break
+      else:
+        break

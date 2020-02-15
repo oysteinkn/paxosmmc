@@ -4,6 +4,7 @@ from threading import Thread
 class Process(Thread):
   def __init__(self, env, id):
     super(Process, self).__init__()
+    self.setDaemon(True)
     self.inbox = multiprocessing.Manager().Queue()
     self.env = env
     self.id = id
@@ -16,7 +17,10 @@ class Process(Thread):
       print "Exiting.."
 
   def getNextMessage(self):
-    return self.inbox.get()
+    try:
+      return self.inbox.get()
+    except:
+      return None
 
   def sendMessage(self, dst, msg):
     self.env.sendMessage(dst, msg)
